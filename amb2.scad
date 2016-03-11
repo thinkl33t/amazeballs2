@@ -91,7 +91,7 @@ module end(type = 0)
         }
         if (type == 2)
         {
-            translate([ (-200+4.8)/2, 12]) square([5, 16-swarf], center=true);
+            translate([ (-200+4.8+material_width)/2, 12]) square([5+material_width, 16-swarf], center=true);
         }
     }
 }
@@ -133,3 +133,4 @@ module left_3d()
 }
 
 left();
+translate([400, 0]) through();
