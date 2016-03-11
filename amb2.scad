@@ -2,7 +2,7 @@ $fs = 1;
 $fa = 1;
 
 material_width = 3;
-swarf = 0.2;
+kerf = 0.4;
 unit_height = 60;
 
 module base_3d()
@@ -17,8 +17,8 @@ module base()
         square([200, 250], center=true);
         for (r=[0, 180])
         {
-            rotate([0,0,r]) translate([100-(material_width/2)+(swarf/2), 0]) square([material_width, 100+swarf], center=true);
-            rotate([0,0,r]) translate([0, 125-(material_width/2)+(swarf/2)]) square([100+swarf, material_width], center=true);
+            rotate([0,0,r]) translate([100-(material_width/2)+(kerf/2), 0]) square([material_width, 100+kerf], center=true);
+            rotate([0,0,r]) translate([0, 125-(material_width/2)+(kerf/2)]) square([100+kerf, material_width], center=true);
         }
     }
 }
@@ -43,7 +43,11 @@ module side(type = 0)
         {
             translate ([0, -125+material_width]) square([unit_height-material_width, 250-material_width-material_width]);
             translate([30, -(250)/2]) square([unit_height-45, 250]);
-            translate([-(material_width+swarf)/2, 0]) square([material_width+swarf, 100+swarf], center=true);
+            translate([-(material_width+kerf)/2, 0]) square([material_width+kerf, 100+kerf], center=true);
+            if (type==2)
+            {
+                translate([12, (250-material_width)/2]) square([16, material_width+kerf], center=true);
+            }
         }
 
         if (type>0)
@@ -79,11 +83,11 @@ module end(type = 0)
         union()
         {
             translate ([-100, 0]) square([200, unit_height-material_width]);
-            translate([0, -(material_width+swarf)/2]) square([100+swarf, material_width+swarf], center=true);
+            translate([0, -(material_width+kerf)/2]) square([100+kerf, material_width+kerf], center=true);
         }
         for (m=[0, 1])
         {
-            mirror([m, 0]) translate([-100-swarf, 30]) square([material_width-swarf, unit_height-45-swarf]);
+            mirror([m, 0]) translate([-100-kerf, 30]) square([material_width-kerf, unit_height-45-kerf]);
         }
         if(type == 1)
         {
@@ -91,7 +95,7 @@ module end(type = 0)
         }
         if (type == 2)
         {
-            translate([ (-200+4.8+material_width)/2, 12]) square([5+material_width, 16-swarf], center=true);
+            translate([ (-200+4.8+material_width)/2, 12]) square([5+material_width, 16-kerf], center=true);
         }
     }
 }
