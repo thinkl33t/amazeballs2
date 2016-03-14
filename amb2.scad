@@ -46,22 +46,22 @@ module side(type = 0)
             translate([-(material_width+kerf)/2, 0]) square([material_width+kerf, 100+kerf], center=true);
             if (type==2)
             {
-                translate([12, (250-material_width)/2]) square([16, material_width+kerf], center=true);
+                translate([10, (250-material_width)/2]) square([20, material_width+kerf], center=true);
             }
         }
 
         if (type>0)
         {
-            translate([12, -(250-material_width-material_width-4.8)/2]) square([16, 5], center=true);
+            translate([10, -(250-material_width-material_width-4.8)/2]) square([20, 5], center=true);
         }
         if (type == 1)
         {
-            translate([12, (250-material_width-material_width-4.8)/2]) square([16, 5], center=true);
+            translate([10, (250-material_width-material_width-4.8)/2]) square([20, 5], center=true);
         }
         if (type == 2)
         {
-            translate([12, -75-10]) square([16, 20], center=true);
-            translate([36-material_width, 25]) circle(r=12);
+            translate([10, -75-15]) square([20, 30], center=true);
+            translate([36-material_width, 25]) circle(d=12);
         }
     }
 }
@@ -91,11 +91,11 @@ module end(type = 0)
         }
         if(type == 1)
         {
-            translate([0, 36-material_width]) circle(r=12);
+            translate([0, 36-material_width]) circle(d=12);
         }
         if (type == 2)
         {
-            translate([ (-200+4.8+material_width)/2, 12]) square([5+material_width, 16-kerf], center=true);
+            translate([ (-200+5+material_width)/2, 10]) square([5+material_width, 20], center=true);
         }
     }
 }
