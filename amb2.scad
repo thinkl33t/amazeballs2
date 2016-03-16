@@ -2,7 +2,7 @@ $fs = 1;
 $fa = 1;
 
 material_width = 3;
-kerf = 0.4;
+kerf = 0.2;
 unit_height = 60;
 
 module base_3d()
@@ -87,7 +87,7 @@ module end(type = 0)
         }
         for (m=[0, 1])
         {
-            mirror([m, 0]) translate([-100-kerf, 30]) square([material_width-kerf, unit_height-45-kerf]);
+            #mirror([m, 0]) translate([-100, 30]) square([material_width-kerf, unit_height-45-kerf]);
         }
         if(type == 1)
         {
