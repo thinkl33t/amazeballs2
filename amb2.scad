@@ -1,9 +1,20 @@
-$fs = 1;
+$fs = 0.5;
 $fa = 1;
 
 material_width = 3;
 kerf = 0.4;
 unit_height = 60;
+
+module al_bracket_l()
+{
+    translate([0,14]) square([10,2], center=true);
+    translate([0,7]) circle(d=3.5);
+}
+
+module al_bracket_r()
+{
+    translate([0,7]) circle(d=3.5);
+}
 
 module base_3d()
 {
@@ -14,11 +25,14 @@ module base()
 {
     difference()
     {
-        square([200, 250], center=true);
+        square([200-material_width-material_width, 250-material_width-material_width], center=true);
         for (r=[0, 180])
         {
-            rotate([0,0,r]) translate([100-(material_width/2)+(kerf/2), 0]) square([material_width, 100+kerf], center=true);
-            rotate([0,0,r]) translate([0, 125-(material_width/2)+(kerf/2)]) square([100+kerf, material_width], center=true);
+            rotate([0,0,r]) translate([0, -125+material_width]) al_bracket_r();
+            for (y=[-60, 60])
+            {
+                rotate([0,0,r]) translate([-100+material_width, y]) rotate([0,0,-90]) al_bracket_r();
+            }
         }
     }
 }
@@ -41,13 +55,21 @@ module side(type = 0)
     {
         union()
         {
-            translate ([0, -125+material_width]) square([unit_height-material_width, 250-material_width-material_width]);
-            translate([30, -(250)/2]) square([unit_height-45, 250]);
-            translate([-(material_width+kerf)/2, 0]) square([material_width+kerf, 100+kerf], center=true);
+            translate ([-material_width, -125]) square([unit_height, 250]);
             if (type==2)
             {
                 translate([10, (250-material_width)/2]) square([20, material_width+kerf], center=true);
             }
+        }
+        
+        for (y=[-60, 60])
+        {
+            translate([0, y]) rotate([0,0,-90]) al_bracket_l();
+        }
+        
+        for (r=[0, 180])
+        {
+            translate([40, 0]) rotate([0,0,r]) translate([0, -125+material_width]) al_bracket_l();
         }
 
         if (type>0)
@@ -80,15 +102,15 @@ module end(type = 0)
 {
     difference()
     {
-        union()
+        translate ([-100+material_width, -material_width]) square([200-material_width-material_width, unit_height]);
+        
+        al_bracket_l();
+        
+        for (r=[0, 180])
         {
-            translate ([-100, 0]) square([200, unit_height-material_width]);
-            translate([0, -(material_width+kerf)/2]) square([100+kerf, material_width+kerf], center=true);
+            translate([0, 40]) rotate([0,0,r]) translate([-100+material_width, 0]) rotate([0,0,-90]) al_bracket_r();
         }
-        for (m=[0, 1])
-        {
-            mirror([m, 0]) translate([-100-kerf, 30]) square([material_width-kerf, unit_height-45-kerf]);
-        }
+
         if(type == 1)
         {
             translate([0, 36-material_width]) circle(d=12);
@@ -136,5 +158,7 @@ module left_3d()
     color("purple")translate([0, -125, material_width]) rotate([-90, 0]) mirror([0,1]) end_3d(1); 
 }
 
-left();
-translate([400, 0]) through();
+//left();
+//translate([400, 0]) through();
+
+through_3d();
