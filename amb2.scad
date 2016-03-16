@@ -158,7 +158,7 @@ module left_3d()
     color("purple")translate([0, -125, material_width]) rotate([-90, 0]) mirror([0,1]) end_3d(1); 
 }
 
-//left();
-//translate([400, 0]) through();
+left();
+translate([400, 0]) through();
 
-through_3d();
+//left_3d();
