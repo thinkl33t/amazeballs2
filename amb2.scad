@@ -7,14 +7,15 @@ unit_height = 60;
 
 module al_bracket_l()
 {
-    translate([0,14]) square([10,2], center=true);
-    translate([0,7]) circle(d=3.5);
+    %translate([-5, 0]) square([10, 13.7]);
+    translate([0,15.5-(1.8/2)]) square([10,1.8], center=true);
+    translate([0,7.3]) circle(d=3.5);
 }
 
 module al_bracket_r()
 {
-    translate([0,7]) circle(d=3.5);
-}
+    %translate([-5, 0]) square([10, 13.3]);
+    translate([0,7.3]) circle(d=3.5);}
 
 module base_3d()
 {
@@ -53,18 +54,11 @@ module side(type = 0)
 {
     difference()
     {
-        union()
-        {
-            translate ([-material_width, -125]) square([unit_height, 250]);
-            if (type==2)
-            {
-                translate([10, (250-material_width)/2]) square([20, material_width+kerf], center=true);
-            }
-        }
+        translate ([0, -125]) square([unit_height, 250]);
         
         for (y=[-60, 60])
         {
-            translate([0, y]) rotate([0,0,-90]) al_bracket_l();
+            translate([material_width, y]) rotate([0,0,-90]) al_bracket_l();
         }
         
         for (r=[0, 180])
@@ -74,16 +68,16 @@ module side(type = 0)
 
         if (type>0)
         {
-            translate([10, -(250-material_width-material_width-4.8)/2]) square([20, 5], center=true);
+            translate([10+3, -(250-material_width-material_width-4.8)/2]) square([20, 5], center=true);
         }
         if (type == 1)
         {
-            translate([10, (250-material_width-material_width-4.8)/2]) square([20, 5], center=true);
+            translate([10+3, (250-material_width-material_width-4.8)/2]) square([20, 5], center=true);
         }
         if (type == 2)
         {
-            translate([10, -75-15]) square([20, 30], center=true);
-            translate([36-material_width, 25]) circle(d=12);
+            translate([10+3, -75-15]) square([20, 30], center=true);
+            translate([36, 25]) circle(d=12);
         }
     }
 }
@@ -102,9 +96,9 @@ module end(type = 0)
 {
     difference()
     {
-        translate ([-100+material_width, -material_width]) square([200-material_width-material_width, unit_height]);
+        translate ([-100+material_width, 0]) square([200-material_width-material_width, unit_height]);
         
-        al_bracket_l();
+        translate([0, material_width]) al_bracket_l();
         
         for (r=[0, 180])
         {
@@ -113,7 +107,7 @@ module end(type = 0)
 
         if(type == 1)
         {
-            translate([0, 36-material_width]) circle(d=12);
+            translate([0, 36]) circle(d=12);
         }
         if (type == 2)
         {
@@ -161,4 +155,4 @@ module left_3d()
 left();
 translate([400, 0]) through();
 
-//left_3d();
+//through_3d();
